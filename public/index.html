@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merger - Combine PDFs with Page Selection</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF Merger</span>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-tab="home">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                <button class="nav-btn" data-tab="about">
+                    <i class="fas fa-info-circle"></i> About Us
+                </button>
+                <button class="nav-btn" data-tab="feedback">
+                    <i class="fas fa-comment"></i> Feedback
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Tab -->
+        <div class="tab-content active" id="home">
+            <div class="container">
+                <div class="hero-section">
+                    <div class="hero-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h1>PDF Merger Tool</h1>
+                    <p>Combine multiple PDF files into one document with page selection</p>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Upload PDF Files</h3>
+                        <p>Drag and drop your PDF files here or click to browse</p>
+                        <input type="file" id="fileInput" multiple accept=".pdf" style="display: none;">
+                        <button class="upload-btn" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
+                            Choose Files
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Files List -->
+                <div class="files-section" id="filesSection" style="display: none;">
+                    <h3>Uploaded Files</h3>
+                    <div class="files-list" id="filesList"></div>
+                    <div class="merge-section">
+                        <button class="merge-btn" id="mergeBtn" onclick="mergePDFs()">
+                            <i class="fas fa-compress-arrows-alt"></i> Merge PDFs
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-section" id="progressSection" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Processing...</p>
+                </div>
+
+                <!-- Download Section -->
+                <div class="download-section" id="downloadSection" style="display: none;">
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>PDF Merged Successfully!</h3>
+                        <p>Your merged PDF is ready for download</p>
+                        <a href="#" id="downloadLink" class="download-btn">
+                            <i class="fas fa-download"></i> Download Merged PDF
+                        </a>
+                        <button class="new-merge-btn" onclick="resetApp()">
+                            <i class="fas fa-plus"></i> Merge Another Set
+                        </button>
+                    </div>
+                </div>
+
+                <!-- How it works -->
+                <div class="how-it-works">
+                    <h3>How it works:</h3>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <p>Upload PDFs</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <p>Select Pages</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <p>Merge & Download</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Tab -->
+        <div class="tab-content" id="about">
+            <div class="container">
+                <div class="about-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h1>About PDF Merger</h1>
+                </div>
+                
+                <div class="about-content">
+                    <div class="mission-section">
+                        <h2>Our Mission</h2>
+                        <p>PDF Merger is designed to simplify document management by providing a fast, secure, and user-friendly way to combine multiple PDF files into a single document. Whether you're consolidating reports, merging contracts, or organizing documents, our tool makes the process effortless.</p>
+                    </div>
+
+                    <div class="features-grid">
+                        <h2>Key Features</h2>
+                        <div class="feature-cards">
+                            <div class="feature-card">
+                                <i class="fas fa-rocket"></i>
+                                <h3>Fast Processing</h3>
+                                <p>Lightning-fast PDF merging with optimized algorithms</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-lock"></i>
+                                <h3>Secure</h3>
+                                <p>Your files are processed securely with automatic cleanup</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-mobile-alt"></i>
+                                <h3>Responsive</h3>
+                                <p>Works seamlessly on desktop, tablet, and mobile devices</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-gift"></i>
+                                <h3>Free to Use</h3>
+                                <p>No hidden costs or subscription fees</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-list-ol"></i>
+                                <h3>Page Selection</h3>
+                                <p>Choose specific pages or ranges from each PDF</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-sort"></i>
+                                <h3>Reorder Files</h3>
+                                <p>Arrange your PDFs in any order before merging</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="privacy-section">
+                        <h2>Privacy & Security</h2>
+                        <p>We take your privacy seriously. All PDF processing happens on our secure servers, and your files are automatically deleted after processing. We don't store, share, or access the content of your documents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Tab -->
+        <div class="tab-content" id="feedback">
+            <div class="container">
+                <div class="feedback-header">
+                    <i class="fas fa-comment"></i>
+                    <h1>We Value Your Feedback</h1>
+                    <p>Help us improve PDF Merger by sharing your thoughts and suggestions</p>
+                </div>
+
+                <div class="feedback-form">
+                    <div class="rating-section">
+                        <label>How would you rate your experience?</label>
+                        <div class="rating-stars">
+                            <i class="fas fa-star" data-rating="1"></i>
+                            <i class="fas fa-star" data-rating="2"></i>
+                            <i class="fas fa-star" data-rating="3"></i>
+                            <i class="fas fa-star" data-rating="4"></i>
+                            <i class="fas fa-star" data-rating="5"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Feedback Type</label>
+                        <select id="feedbackType">
+                            <option value="">Select feedback type</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="improvement">Improvement Suggestion</option>
+                            <option value="general">General Feedback</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" id="feedbackSubject" placeholder="Brief description of your feedback">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="feedbackMessage" rows="6" placeholder="Please provide detailed feedback here..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email (Optional)</label>
+                        <input type="email" id="feedbackEmail" placeholder="your.email@example.com">
+                        <small>We'll only use this to follow up on your feedback</small>
+                    </div>
+
+                    <button class="submit-btn" onclick="submitFeedback()">
+                        <i class="fas fa-paper-plane"></i> Submit Feedback
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 PDF Merger. Made with ❤️ for document management.</p>
+        </div>
+    </footer>
+
+    <!-- Page Selection Modal -->
+    <div class="modal" id="pageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Select Pages</h3>
+                <button class="close-btn" onclick="closePageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select which pages to include from <strong id="modalFileName"></strong> (Total: <span id="modalPageCount"></span> pages)</p>
+                <div class="page-options">
+                    <label class="radio-option">
+                        <input type="radio" name="pageOption" value="all" checked>
+                        <span>All pages</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pageOption" value="range">
+                        <span>Specific pages/ranges</span>
+                    </label>
+                </div>
+                <div class="page-range-input" id="pageRangeInput" style="display: none;">
+                    <input type="text" id="pageRange" placeholder="e.g., 1-3, 5, 8-10">
+                    <small>Use commas to separate pages and ranges (e.g., 1-3, 5, 8-10)</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closePageModal()">Cancel</button>
+                <button class="confirm-btn" onclick="confirmPageSelection()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
